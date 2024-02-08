@@ -19,7 +19,7 @@ import dj_database_url
 import psycopg2
 
 DATABASE_URL = os.getenv('DATABASE_URL')
-conn = psycopg2.connect(DATABASE_URL, sslmode='require', host='localhost', port=5432)
+conn = psycopg2.connect(DATABASE_URL, sslmode='require', port=5432)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
