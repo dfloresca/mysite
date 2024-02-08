@@ -15,21 +15,6 @@ jobs:
       matrix:
         python-version: ['3.10']
 
-        services:
-          postgres:
-            image: postgres:latest
-            env:
-              POSTGRES_DB: your_db
-              POSTGRES_USER: your_user
-              POSTGRES_PASSWORD: your_password
-            ports:
-              - 5432:5432
-            options: >-
-              --health-cmd pg_isready
-              --health-interval 10s
-              --health-timeout 5s
-              --health-retries 5
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
@@ -41,5 +26,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
+      env:
+        DATABASE_URL: ${{ env.DATABASE_URL }} # Use the secret variable
       run: |
         python manage.py test
