@@ -29,4 +29,4 @@ jobs:
       env:
         DATABASE_URL: ${{ env.DATABASE_URL }} # Use the secret variable
       run: |
-        python manage.py test
+        python3 manage.py test
