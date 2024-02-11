@@ -7,6 +7,7 @@ from .models import Choice, Question
 from django.views import generic
 from django.utils import timezone
 from django.core.mail import send_mail
+from django.conf import settings
 from .forms import ContactForm
 import os
 from dotenv import load_dotenv
@@ -30,26 +31,42 @@ recipientAddress = os.getenv('SMTP_EMAIL')
 #     return render(request, "polls/results.html", {"question": question})
 def send_message(request):
     if request.method =="POST":
-        #create a form instance and populate it with the data from the request:
-        form = ContactForm(request.post)
+        form = ContactForm(request.POST)
         if form.is_valid():
-            #process the data in the form.cleaned_data as required
-            subject = form.cleaned_data['subject']
-            message = form.cleaned_data['message']
+            subject = f"{form.cleaned_data['name']} sent you a message!"
+            message = f"Name: {form.cleaned_data['name']}\n\nSubject: {form.cleaned_data['subject']}\n\nSender: {form.cleaned_data['sender']}\n\nMessage:\n{form.cleaned_data['message']}"
             sender = form.cleaned_data['sender']
-            cc_myself = form.cleaned_data['cc_myself']
-
-            recipients = [recipientAddress]
-            if cc_myself:
-                recipients.append(sender)
+            send_mail(
+                subject, #title
+                message,
+                sender,
+                [recipientAddress],
+                fail_silently=False,
+            )
             
-            send_mail(subject, message, sender, recipients)
-            # redirect to a new url
-            return HttpResponseRedirect('/thanks/')
     else:
         form = ContactForm()
+    
+    return render(request, "polls/contact.html", {"form" : form }) 
+        #create a form instance and populate it with the data from the request:
+        # form = ContactForm(request.post)
+    #     if form.is_valid():
+    #         #process the data in the form.cleaned_data as required
+    #         subject = form.cleaned_data['subject']
+    #         message = form.cleaned_data['message']
+    #         sender = form.cleaned_data['sender']
+    #         cc_myself = form.cleaned_data['cc_myself']
 
-    return render(request, "contact.html", {"form" : form }) 
+    #         recipients = [recipientAddress]
+    #         if cc_myself:
+    #             recipients.append(sender)
+            
+    #         send_mail(subject, message, sender, recipients)
+    #         # redirect to a new url
+    #         return HttpResponseRedirect('/thanks/')
+    # else:
+    #     form = ContactForm()
+
 class IndexView(generic.ListView):
     template_name = "polls/index.html"
     context_object_name = "latest_question_list"

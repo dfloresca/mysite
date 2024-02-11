@@ -17,6 +17,11 @@ load_dotenv()
 
 import dj_database_url
 import psycopg2
+from django.forms.renderers import TemplatesSetting
+
+
+class CustomFormRenderer(TemplatesSetting):
+    form_template_name = "form_snippet_html"
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(DATABASE_URL, sslmode='require', port=5432)
@@ -34,6 +39,16 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+HOST_EMAIL = os.getenv('SMTP_EMAIL')
+HOST_PASSWORD = os.getenv('SMTP_PASSWORD')
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = HOST_EMAIL
+EMAIL_HOST_PASSWORD = HOST_PASSWORD
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+ALLOWED_HOSTS = []
 
 ALLOWED_HOSTS = []
 
