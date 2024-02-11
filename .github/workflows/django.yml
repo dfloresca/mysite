@@ -42,5 +42,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
+      env:
+        DATABASE_URL: ${{ env.DATABASE_URL }} # Use the secret variable
       run: |
         python manage.py test
