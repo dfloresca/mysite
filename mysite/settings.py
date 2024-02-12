@@ -39,6 +39,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+ALLOWED_HOSTS = []
+
 HOST_EMAIL = os.getenv('SMTP_EMAIL')
 HOST_PASSWORD = os.getenv('SMTP_PASSWORD')
 
@@ -50,7 +53,6 @@ EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 ALLOWED_HOSTS = []
 
-ALLOWED_HOSTS = []
 
 
 # Application definition

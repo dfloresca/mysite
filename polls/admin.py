@@ -5,9 +5,9 @@ from .models import Question, Choice, Song, Artist, Album
 # admin.site.register(Question)
 # admin.site.register(Choice)
 
-admin.site.register(Song)
 
-class SongInline(admin.StackedInline):
+
+class SongInline(admin.TabularInline):
     model=Song
     extra=3
 
@@ -49,3 +49,4 @@ class QuestionAdmin(admin.ModelAdmin):
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Artist, ArtistAdmin)
 admin.site.register(Album, AlbumAdmin)
+admin.site.register(Song)
