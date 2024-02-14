@@ -43,7 +43,8 @@ def send_message(request):
                 [recipientAddress],
                 fail_silently=False,
             )
-            return HttpResponseRedirect('polls:index')
+            form = ContactForm()
+            return HttpResponseRedirect('/polls')
         else:
             form = ContactForm()
             return render(request, "polls/contact.html", { 'form': form })
@@ -190,3 +191,4 @@ def vote(request, question_id):
 
 # # TODO Delete a question
 # # 
+

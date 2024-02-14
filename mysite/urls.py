@@ -23,5 +23,7 @@ urlpatterns = [
     path("polls/", include("polls.urls")),
     path('admin/', admin.site.urls, name="admin"),
     path("__debug__/", include("debug_toolbar.urls")),
-    path("login/", views.login_view, name="login")
+    path("login/", views.login_view, name="login"),
+    path("logout/", views.logout_view, name="logout"),
+    path("signup/", views.signup_view, name= "signup"),
 ]
