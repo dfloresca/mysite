@@ -22,5 +22,6 @@ urlpatterns = [
     path("", views.home , name="home"),
     path("polls/", include("polls.urls")),
     path('admin/', admin.site.urls, name="admin"),
-    path("__debug__/", include("debug_toolbar.urls"))
+    path("__debug__/", include("debug_toolbar.urls")),
+    path("login/", views.login_view, name="login")
 ]

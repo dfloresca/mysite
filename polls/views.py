@@ -43,11 +43,13 @@ def send_message(request):
                 [recipientAddress],
                 fail_silently=False,
             )
-            
+            return HttpResponseRedirect('polls:index')
+        else:
+            form = ContactForm()
+            return render(request, "polls/contact.html", { 'form': form })
     else:
         form = ContactForm()
-    
-    return render(request, "polls/contact.html", {"form" : form }) 
+        return render(request, "polls/contact.html", {"form" : form }) 
         #create a form instance and populate it with the data from the request:
         # form = ContactForm(request.post)
     #     if form.is_valid():
