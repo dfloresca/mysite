@@ -14,6 +14,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+# imports for authentication
+from django.contrib.auth.forms import  UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import  User
+from django.contrib.auth import  login , logout, authenticate
+from django.contrib.auth.decorators import  login_required
+from django.utils.decorators import  method_decorator
+
 recipientAddress = os.getenv('SMTP_EMAIL')
 # Create your views here.
 # views = routes
@@ -94,6 +101,8 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = "polls/results.html"
 
+
+@login_required
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
